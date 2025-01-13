@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS record (
+    id BIGSERIAL PRIMARY KEY,
+    instance_id BIGINT NOT NULL,
+    domain VARCHAR(255) NOT NULL UNIQUE,
+    target VARCHAR(255) NOT NULL,
+    port INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX IF NOT EXISTS idx_record_domain ON record (domain, deleted_at);
+CREATE INDEX IF NOT EXISTS idx_record_target ON record (target, deleted_at);

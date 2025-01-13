@@ -16,12 +16,17 @@ A lightweight Teamspeak DNS server implementation in Go.
 
 ## 📋 Table of Contents
 
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Configuration](#-configuration)
-- [Architecture](#-architecture)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [TSDNS-Go](#tsdns-go)
+  - [🌟 Highlights](#-highlights)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [🚀 Installation](#-installation)
+  - [🎯 Quick Start](#-quick-start)
+  - [⚙️ Configuration](#️-configuration)
+  - [🏗 Architecture](#-architecture)
+    - [Repository Interface](#repository-interface)
+  - [🤝 Contributing](#-contributing)
+  - [📄 License](#-license)
+  - [📞 Support](#-support)
 
 ## 🚀 Installation
 

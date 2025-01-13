@@ -1,10 +1,11 @@
 package postgres
 
 import (
+	"time"
+
 	"github.com/honeybbq/tsdns-go/repository/postgres/model"
 	"github.com/honeybbq/tsdns-go/repository/postgres/query"
 	"github.com/honeybbq/tsdns-go/types"
-	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -23,7 +24,6 @@ func NewRepository(dsn string) (types.RecordRepository, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	query.SetDefault(db)
 
 	return &repository{
