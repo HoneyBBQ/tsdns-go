@@ -1,12 +1,13 @@
 package file
 
 import (
-	"encoding/gob"
 	"fmt"
-	"github.com/honeybbq/tsdns-go/types"
 	"os"
 	"sync"
 	"time"
+
+	"github.com/honeybbq/tsdns-go/types"
+	"github.com/vmihailenco/msgpack/v5"
 )
 
 type repository struct {
@@ -34,26 +35,46 @@ func NewRepository(filePath string) (types.RecordRepository, error) {
 
 // load reads records from file
 func (f *repository) load() error {
-	file, err := os.OpenFile(f.filePath, os.O_RDONLY, 0644)
-	if err != nil {
-		return err
+	// Check if file exists
+	_, err := os.Stat(f.filePath)
+	if os.IsNotExist(err) {
+		// Create empty file if it doesn't exist
+		file, err := os.OpenFile(f.filePath, os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			return fmt.Errorf("failed to create file: %v", err)
+		}
+		file.Close()
+		return nil // Return as there's nothing to load
 	}
-	defer file.Close()
 
-	decoder := gob.NewDecoder(file)
-	return decoder.Decode(&f.records)
+	// Read file content
+	data, err := os.ReadFile(f.filePath)
+	if err != nil {
+		return fmt.Errorf("failed to read file: %v", err)
+	}
+
+	// Only try to decode if file is not empty
+	if len(data) > 0 {
+		if err := msgpack.Unmarshal(data, &f.records); err != nil {
+			return fmt.Errorf("failed to decode records: %v", err)
+		}
+	}
+
+	return nil
 }
 
 // save writes records to file
 func (f *repository) save() error {
-	file, err := os.OpenFile(f.filePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	data, err := msgpack.Marshal(f.records)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to encode records: %v", err)
 	}
-	defer file.Close()
 
-	encoder := gob.NewEncoder(file)
-	return encoder.Encode(f.records)
+	if err := os.WriteFile(f.filePath, data, 0644); err != nil {
+		return fmt.Errorf("failed to write file: %v", err)
+	}
+
+	return nil
 }
 
 // Find retrieves all records

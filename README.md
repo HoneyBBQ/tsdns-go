@@ -36,7 +36,7 @@ go get github.com/honeybbq/tsdns-go
 
 ## 🎯 Quick Start
 
-Here's a minimal example to get you started: [Postgres Demo](./example/postgres.go)
+Here's a minimal example to get you started: [Postgres Demo](./example/demo.go)
 
 ## ⚙️ Configuration
 
