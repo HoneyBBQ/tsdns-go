@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod"    # 指定为Go模块
+    directory: "/"                # go.mod文件所在目录
+    schedule:
+      interval: "weekly"          # 每周检查更新
+    
+    # PR相关配置(可选)
+    labels:
+      - "dependencies"
+      - "go"
+    
+    open-pull-requests-limit: 10  # 限制PR数量
+    
+    # 可以指定审查者(可选)
+    # reviewers:
+    #   - "username"
