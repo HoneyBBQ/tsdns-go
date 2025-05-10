@@ -6,7 +6,7 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.4.1
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gen v0.3.27
-	gorm.io/gorm v1.25.12
+	gorm.io/gorm v1.26.0
 	gorm.io/plugin/dbresolver v1.5.3
 )
 
